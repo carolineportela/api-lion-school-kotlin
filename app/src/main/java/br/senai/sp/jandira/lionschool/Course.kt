@@ -72,7 +72,8 @@ fun Courses() {
             .background(
                 Brush.verticalGradient(
                     colors = listOf(
-                        Color(54, 60, 207), Color(255, 255, 255)
+                        Color(0, 91, 234),
+                        Color(231, 190, 96)
                     )
                 )
             )
@@ -101,7 +102,7 @@ fun Courses() {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Choose the course you want to access",
+                    text = "Choose a course to menage",
                     fontSize = 32.sp,
                     color = Color.White,
                     modifier = Modifier.width(290.dp),
@@ -109,26 +110,7 @@ fun Courses() {
                     fontFamily = FontFamily.SansSerif
                 )
                 Spacer(modifier = Modifier.size(25.dp))
-                OutlinedTextField(
-                    value = "",
-                    onValueChange = {},
-                    shape = RoundedCornerShape(24.dp),
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = Color.Green,
-                        unfocusedBorderColor = Color.White
-                    ),
-                    label = {
-                        Text(text = "Search for a course", color = Color.White)
-                    },
-                    leadingIcon = {
-                        Icon(
-                            painter = painterResource(id = R.drawable.baseline_search_24),
-                            contentDescription = "",
-                            tint = Color.White
-                        )
-                    }
-                )
-                Spacer(modifier = Modifier.size(20.dp))
+
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -146,7 +128,7 @@ fun Courses() {
 
                                     context.startActivity(openStudents)
                                 },
-                            backgroundColor = Color(208, 220, 238),
+                            backgroundColor = Color(231, 190, 96),
                             shape = RoundedCornerShape(16.dp)
                         ) {
                             Row(modifier = Modifier.padding(10.dp)) {

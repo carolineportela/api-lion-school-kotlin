@@ -65,18 +65,47 @@ fun Student(curso: String) {
         mutableStateOf("")
     }
 
-    val call = RetrofitFactory().getStudentsService().getCourseStudent(curso)
+    // Função para obter a lista de alunos com base no status selecionado
+    fun fetchStudentsWithStatus(status: String) {
+        val call = RetrofitFactory().getStudentsService().getCourseStudentWithStatus(curso, status)
 
-    call.enqueue(object : Callback<StudentsList> {
-        override fun onResponse(call: Call<StudentsList>, response: Response<StudentsList>) {
-            listStudents = response.body()!!.alunos
-            nameCourse = response.body()!!.nomeCurso
-        }
 
-        override fun onFailure(call: Call<StudentsList>, t: Throwable) {
-            Log.i("teste", "onFailure: ${t.message} ")
+        call.enqueue(object : Callback<StudentsList> {
+            override fun onResponse(call: Call<StudentsList>, response: Response<StudentsList>) {
+                listStudents = response.body()?.alunos ?: emptyList()
+                nameCourse = response.body()?.nomeCurso ?: ""
+            }
+
+            override fun onFailure(call: Call<StudentsList>, t: Throwable) {
+                Log.i("teste", "onFailure: ${t.message} ")
+            }
+        })
+    }
+
+    // Atualizar a lista de alunos quando a opção selecionada mudar
+    LaunchedEffect(selectedOption) {
+        if (selectedOption == 1) {
+            val call = RetrofitFactory().getStudentsService().getCourseStudent(curso)
+
+            call.enqueue(object : Callback<StudentsList> {
+                override fun onResponse(call: Call<StudentsList>, response: Response<StudentsList>) {
+                    listStudents = response.body()?.alunos ?: emptyList()
+                    nameCourse = response.body()?.nomeCurso ?: ""
+                }
+
+                override fun onFailure(call: Call<StudentsList>, t: Throwable) {
+                    Log.i("teste", "onFailure: ${t.message} ")
+                }
+            })
+        } else {
+            val status = when (selectedOption) {
+                2 -> "Cursando"
+                3 -> "Finalizado"
+                else -> "Todos"
+            }
+            fetchStudentsWithStatus(status)
         }
-    })
+    }
 
     Box(
         modifier = Modifier
@@ -84,7 +113,8 @@ fun Student(curso: String) {
             .background(
                 Brush.verticalGradient(
                     colors = listOf(
-                        Color(54, 60, 207), Color(255, 255, 255)
+                        Color(0, 91, 234),
+                        Color(240,190, 96)
                     )
                 )
             )
@@ -112,34 +142,7 @@ fun Student(curso: String) {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(
-                    text = "Course Students",
-                    fontSize = 32.sp,
-                    color = Color.White,
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = FontFamily.SansSerif
-                )
                 Spacer(modifier = Modifier.size(15.dp))
-                OutlinedTextField(
-                    value = "",
-                    onValueChange = {},
-                    shape = RoundedCornerShape(24.dp),
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = Color.Green,
-                        unfocusedBorderColor = Color.White
-                    ),
-                    label = {
-                        Text(text = "Search for a student", color = Color.White)
-                    },
-                    leadingIcon = {
-                        Icon(
-                            painter = painterResource(id = R.drawable.baseline_search_24),
-                            contentDescription = "",
-                            tint = Color.White
-                        )
-                    }
-                )
-                Spacer(modifier = Modifier.size(20.dp))
                 Text(
                     text = nameCourse, fontSize = 25.sp,
                     color = Color.White,
@@ -176,9 +179,9 @@ fun Student(curso: String) {
 
                         var backgroundCard = Color(0, 0, 0)
                         if (it.status == "Finalizado") {
-                            backgroundCard = Color(51, 71, 176, 255)
-                        } else {
                             backgroundCard = Color(229, 182, 87, 255)
+                        } else {
+                            backgroundCard = Color(51, 71, 176, 255)
                         }
 
                         Spacer(modifier = Modifier.size(20.dp))

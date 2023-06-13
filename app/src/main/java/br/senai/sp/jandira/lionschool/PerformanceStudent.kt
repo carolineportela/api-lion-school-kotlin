@@ -84,7 +84,8 @@ fun Performance(matricula: String) {
             .background(
                 Brush.verticalGradient(
                     colors = listOf(
-                        Color(54, 60, 207), Color(255, 255, 255)
+                        Color(0, 91, 234),
+                        Color(240,190, 96)
                     )
                 )
             )
@@ -110,13 +111,6 @@ fun Performance(matricula: String) {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(
-                    text = "Performance",
-                    fontSize = 40.sp,
-                    color = Color.White,
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = FontFamily.SansSerif
-                )
                 Spacer(modifier = Modifier.size(40.dp))
 
                 LazyColumn(
@@ -161,7 +155,7 @@ fun Performance(matricula: String) {
                                 .height(350.dp)
                                 .padding(20.dp),
                             shape = RoundedCornerShape(10.dp),
-                            backgroundColor = colorResource(id = R.color.third_blue_gradient)
+                            backgroundColor = colorResource(id = R.color.second_blue)
                         ) {
                             Spacer(modifier = Modifier.height(10.dp))
                             LazyColumn(

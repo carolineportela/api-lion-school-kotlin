@@ -46,10 +46,8 @@ fun Home() {
             .background(
                 Brush.verticalGradient(
                     colors = listOf(
-                        Color(245, 195, 17),
-                        Color(94, 97, 192),
-                        Color(94, 97, 192),
-                        Color(0, 8, 195)
+                        Color(0, 91, 234),
+                        Color(231, 190, 96)
                     )
                 )
             )
@@ -60,7 +58,7 @@ fun Home() {
         ) {
             Column(
                 modifier = Modifier.fillMaxHeight(),
-                verticalArrangement = Arrangement.SpaceAround,
+                verticalArrangement = Arrangement.SpaceEvenly,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Row() {
@@ -71,24 +69,9 @@ fun Home() {
                             .width(82.dp)
                             .height(107.dp)
                     )
-                    Spacer(modifier = Modifier.width(10.dp))
-                    Text(
-                        text = "Lion School",
-                        fontSize = 32.sp,
-                        color = Color.White,
-                        modifier = Modifier.width(110.dp),
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = FontFamily.Serif
-                    )
+
                 }
 
-                Image(
-                    painter = painterResource(id = R.drawable.img),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .width(250.dp)
-                        .height(380.dp)
-                )
                 Button(
                     onClick = {
                         var openCourse = Intent(context, Course::class.java)
@@ -102,7 +85,7 @@ fun Home() {
                     colors = ButtonDefaults.buttonColors(Color(255, 194, 62))
                 ) {
                     Text(
-                        text = "GET STARTED",
+                        text = "Start",
                         fontWeight = FontWeight.Bold,
                         fontSize = 24.sp,
                         color = Color.White
